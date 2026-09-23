@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.env
+.venv/
+venv/
+wandb/
+logs/
+*.log
+*.pid
+
+outputs/
+runs/
+models/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+
+# Reconstructed from committed parts when needed.
+results/final800/predictions/qwen3_5_27b_8fps.jsonl
+results/final800/predictions/qwen3_5_9b_8fps.jsonl

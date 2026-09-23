@@ -1,0 +1,52 @@
+# RoboJudge ICLR 2027 release requirements
+# Python: 3.11.2
+# Package index used in the verified internal run: https://bytedpypi.byted.org/simple/
+# CUDA stack in the verified run: CUDA 12.9 Python wheels, H20 GPUs.
+#
+# LLaMA-Factory is required for SFT and should be installed from the release-pinned
+# source snapshot used by the experiments. The verified package version is:
+#   llamafactory==0.9.6.dev0
+# Verified local source path during release validation:
+#   <llamafactory_source>
+# Do not use an arbitrary upstream LLaMA-Factory revision without recording its commit/hash.
+
+accelerate==1.11.0
+av==16.0.0
+datasets==4.0.0
+decord==0.6.0
+deepspeed==0.19.6
+einops==0.8.2
+filelock==3.32.3
+hf_transfer==0.1.9
+huggingface_hub==1.30.0
+Jinja2==3.1.6
+modelscope==1.39.1
+numpy==2.4.6
+omegaconf==2.3.1
+opencv-python-headless==5.0.0.93
+packaging==26.3
+pandas==2.3.3
+peft==0.18.1
+pillow==11.3.0
+protobuf==7.36.1
+pyarrow==25.0.1
+pydantic==2.12.3
+PyYAML==6.0.3
+qwen-vl-utils==0.0.14
+regex==2026.9.3
+requests==2.34.2
+safetensors==0.8.0
+scipy==1.17.1
+sentencepiece==0.2.2
+tiktoken==0.14.0
+tokenizers==0.22.2
+torch==2.13.0+cu129
+torchaudio==2.11.0+cu128
+torchdata==0.11.0
+torchvision==0.28.0+cu129
+tqdm==4.70.0
+transformers==5.8.0
+trl==0.24.0
+typer==0.27.2
+typing_extensions==4.16.0
+tyro==0.8.14

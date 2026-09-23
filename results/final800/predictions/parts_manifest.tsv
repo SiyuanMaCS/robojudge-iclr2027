@@ -1,0 +1,3 @@
+file	size_bytes	sha256	parts
+qwen3_5_27b_8fps.jsonl	147559754	51ba4f9b6ba30b06caaef8599cd83e58d47756b30a468ef7c1d6025cd4ea433c	qwen3_5_27b_8fps.jsonl.part00.part,qwen3_5_27b_8fps.jsonl.part01.part
+qwen3_5_9b_8fps.jsonl	147264624	a172d2c534e2651455787b40a6e4d84c6083b9534db95319893d430eeff37cb7	qwen3_5_9b_8fps.jsonl.part00.part,qwen3_5_9b_8fps.jsonl.part01.part

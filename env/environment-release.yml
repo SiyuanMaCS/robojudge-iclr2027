@@ -1,0 +1,32 @@
+name: robojudge-iclr2027-release
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.11.2
+  - pip
+  - pip:
+      - --index-url https://bytedpypi.byted.org/simple/
+      - pip==26.3
+      - accelerate==1.11.0
+      - av==16.0.0
+      - datasets==4.0.0
+      - decord==0.6.0
+      - deepspeed==0.19.6
+      - einops==0.8.2
+      - modelscope==1.39.1
+      - numpy==2.4.6
+      - peft==0.18.1
+      - pillow==11.3.0
+      - protobuf==7.36.1
+      - qwen-vl-utils==0.0.14
+      - safetensors==0.8.0
+      - sentencepiece==0.2.2
+      - tokenizers==0.22.2
+      - torch==2.13.0+cu129
+      - torchaudio==2.11.0+cu128
+      - torchvision==0.28.0+cu129
+      - transformers==5.8.0
+      - trl==0.24.0
+      - --extra-index-url https://download.pytorch.org/whl/cu129

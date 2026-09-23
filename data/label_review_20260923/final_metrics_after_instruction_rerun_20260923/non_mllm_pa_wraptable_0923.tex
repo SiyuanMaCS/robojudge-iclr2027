@@ -1,0 +1,28 @@
+\begin{wraptable}{r}{0.42\linewidth}
+\centering
+\caption{Pearson correlation ($r$) with human-rated Physical Adherence (PA).}
+\label{tab:non_MLLM_baseline}
+\fontsize{7.5pt}{8.5pt}\selectfont
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lc@{}}
+\toprule
+\textbf{Metric / Judge} & \textbf{PA $r$} \\
+\midrule
+\multicolumn{2}{c}{\textit{Non-MLLM Metrics}} \\
+\midrule
+MUSIQ & 0.065 \\
+Pixel & 0.155 \\
+CLIP & 0.280 \\
+DINO & 0.370 \\
+Motion Magnitude & -0.204 \\
+WARP & 0.135 \\
+V-JEPA Paired & 0.354 \\
+V-JEPA Manifold & 0.158 \\
+\midrule
+\multicolumn{2}{c}{\textit{MLLM Judges}} \\
+\midrule
+Qwen3.5-9B & 0.316 \\
+\textbf{RoboJudge-9B} & \textbf{0.645} \\
+\bottomrule
+\end{tabular}
+\end{wraptable}

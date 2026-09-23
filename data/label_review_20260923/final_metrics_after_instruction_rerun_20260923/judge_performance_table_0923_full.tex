@@ -1,0 +1,191 @@
+\begin{table}[t]
+\centering
+\caption{Judge performance on \textsc{RoboJudge-Bench} (800 submission). $r$ is Pearson correlation with human ratings; \emph{Match} is exact match. Overall $r$ and MSE pool PA and IA as axis-level score predictions, while Overall Match is the average of PA and IA Match. Best per column (excluding human) is in \textbf{bold}.}
+\label{tab:judge_performance}
+\fontsize{7.2pt}{9pt}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l ccc ccc cc c@{}}
+\hline
+ & \multicolumn{3}{c}{\textbf{Physical Adherence}} & \multicolumn{3}{c}{\textbf{Instruction Alignment}} & \multicolumn{3}{c}{\textbf{Overall}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+\textbf{Judge} & $r$ & Match & MSE & $r$ & Match & MSE & $r$ & Match & MSE \\
+\midrule
+Random Baseline
+& 0.000 & 0.200 & 3.349
+& 0.000 & 0.200 & 3.631
+& 0.000 & 0.200 & 3.490 \\
+\midrule
+Human Baseline (\textbf{untrained})
+& 0.730 & 0.460 & 0.945
+& 0.766 & 0.490 & 0.920
+& 0.747 & 0.475 & 0.932 \\
+\midrule
+\multicolumn{10}{c}{\textit{\textbf{Closed-Source MLLMs}}}\\
+\midrule
+Gemini-3.7-Flash~\cite{google2026gemini37flash}
+& 0.611 & 0.245 & 1.949
+& 0.709 & 0.341 & 0.916
+& 0.630 & 0.293 & 1.433 \\
+
+Gemini-3.5-Flash~\cite{google2026gemini35flash}
+& 0.594 & 0.304 & 1.527
+& 0.535 & 0.384 & 1.400
+& 0.562 & 0.344 & 1.463 \\
+
+Gemini-3.1-Pro~\cite{google2026gemini31pro}
+& 0.451 & 0.296 & 1.505
+& 0.584 & 0.321 & 1.395
+& 0.529 & 0.309 & 1.450 \\
+
+GPT-5.5~\cite{openai2026gpt55}
+& 0.481 & 0.335 & 1.410
+& 0.731 & 0.486 & 0.770
+& 0.607 & 0.411 & 1.090 \\
+
+GPT-5.2~\cite{openai2025gpt52}
+& 0.499 & 0.366 & 1.159
+& 0.722 & 0.477 & 0.851
+& 0.626 & 0.422 & 1.005 \\
+
+Claude-Opus-4.8~\cite{anthropic2026claudeopus48}
+& 0.505 & 0.339 & 1.282
+& 0.655 & 0.340 & 1.468
+& 0.587 & 0.339 & 1.375 \\
+
+Claude-Haiku-4.5~\cite{anthropic2025claudehaiku45}
+& 0.179 & 0.246 & 2.639
+& 0.357 & 0.333 & 2.442
+& 0.278 & 0.289 & 2.541 \\
+
+Qwen3.7-Max~\cite{qwen2026qwen37plus}
+& 0.553 & 0.239 & 2.466
+& 0.539 & 0.365 & 2.055
+& 0.537 & 0.302 & 2.261 \\
+
+Qwen3.7-Plus~\cite{qwen2026qwen37plus}
+& 0.548 & 0.244 & 2.450
+& 0.546 & 0.375 & 2.016
+& 0.538 & 0.309 & 2.233 \\
+
+Seed-2.1-Lite~\cite{seed2026seed21}
+& 0.590 & 0.385 & 0.935
+& 0.694 & 0.445 & 1.120
+& 0.619 & 0.415 & 1.028 \\
+
+Seed-2.0-Pro~\cite{seed2026seed20}
+& 0.613 & 0.366 & 1.030
+& 0.698 & 0.490 & 0.964
+& 0.661 & 0.428 & 0.997 \\
+
+\midrule
+\multicolumn{10}{c}{\textit{\textbf{Open-source MLLMs}}}\\
+\midrule
+Qwen3.5-27B~\cite{qwen2026qwen35}
+& 0.431 & 0.303 & 1.664
+& 0.676 & 0.375 & 1.345
+& 0.573 & 0.339 & 1.505 \\
+
+Qwen3.5-9B~\cite{qwen2026qwen35}
+& 0.379 & 0.223 & 3.011
+& 0.461 & 0.347 & 2.314
+& 0.401 & 0.285 & 2.663 \\
+
+Qwen3.5-4B~\cite{qwen2026qwen35}
+& 0.139 & 0.135 & 4.612
+& 0.235 & 0.259 & 3.705
+& 0.101 & 0.197 & 4.159 \\
+
+Qwen3-VL-8B~\cite{bai2025qwen3vl}
+& 0.292 & 0.161 & 3.776
+& 0.341 & 0.279 & 3.094
+& 0.295 & 0.220 & 3.435 \\
+
+GLM-4.6V-Flash~\cite{vteam2025glm45vglm41vthinkingversatilemultimodal}
+& 0.253 & 0.163 & 3.845
+& 0.440 & 0.289 & 3.058
+& 0.356 & 0.226 & 3.451 \\
+
+InternVL3.5-38B~\cite{wang2025internvl3_5}
+& 0.204 & 0.127 & 4.691
+& 0.375 & 0.308 & 3.044
+& 0.271 & 0.218 & 3.867 \\
+
+MiMo-VL-7B~\cite{coreteam2025mimovltechnicalreport}
+& 0.069 & 0.138 & 4.710
+& 0.362 & 0.262 & 3.412
+& 0.237 & 0.200 & 4.061 \\
+
+\midrule
+\multicolumn{10}{c}{\textit{\textbf{Specialized Embodied MLLMs}}}\\
+\midrule
+Cosmos3-Nano-Reasoner~\citep{nvidia2026cosmos3}
+& 0.256 & 0.155 & 4.244
+& 0.524 & 0.381 & 2.049
+& 0.369 & 0.268 & 3.146 \\
+
+Cosmos-Reason2-32B~\citep{nvidia2025cosmosreason2}
+& 0.261 & 0.161 & 3.735
+& 0.484 & 0.364 & 2.330
+& 0.369 & 0.263 & 3.033 \\
+
+Cosmos-Reason2-2B~\citep{nvidia2025cosmosreason2}
+& 0.085 & 0.125 & 4.895
+& 0.309 & 0.245 & 3.586
+& 0.205 & 0.185 & 4.241 \\
+
+MiMo-Embodied-7B~\citep{hao2025mimoembodied}
+& 0.209 & 0.119 & 4.736
+& 0.447 & 0.300 & 2.807
+& 0.304 & 0.209 & 3.776 \\
+
+RynnBrain-1.1-9B~\citep{damo2026rynnbrain11}
+& 0.051 & 0.115 & 5.077
+& 0.196 & 0.251 & 4.025
+& 0.129 & 0.183 & 4.551 \\
+
+RoboBrain2.5-8B~\citep{tan2026robobrain25}
+& 0.042 & 0.128 & 4.952
+& 0.197 & 0.259 & 3.761
+& 0.122 & 0.193 & 4.357 \\
+
+Orca-4B~\citep{orca2026}
+& 0.108 & 0.145 & 4.447
+& 0.096 & 0.244 & 3.242
+& 0.059 & 0.194 & 3.845 \\
+
+\midrule
+\multicolumn{10}{c}{\textit{\textbf{Specialized Judge Models}}}\\
+\midrule
+VideoScore2-8B~\citep{videoscore2}
+& 0.195 & 0.311 & 1.455
+& 0.191 & 0.255 & 1.725
+& 0.202 & 0.283 & 1.590 \\
+
+VideoPhy-2-7B~\citep{videophy2}
+& 0.152 & 0.290 & 1.866
+& 0.147 & 0.291 & 1.732
+& 0.103 & 0.291 & 1.799 \\
+
+VideoCon-7B~\citep{bansal2024videocon}
+& 0.095 & 0.150 & 4.079
+& 0.055 & 0.164 & 4.633
+& 0.077 & 0.157 & 4.356 \\
+
+WBench-30B-A3B~\citep{ying2026wbench}
+& 0.412 & 0.319 & 1.197
+& -- & -- & --
+& -- & -- & -- \\
+
+PhyJudge-9B~\citep{lin2026phyground}
+& 0.417 & 0.314 & 1.429
+& 0.585 & 0.376 & 1.072
+& 0.489 & 0.345 & 1.252 \\
+
+\textbf{RoboJudge-9B (ours)}
+& \textbf{0.645} & \textbf{0.434} & \textbf{0.806}
+& \textbf{0.775} & \textbf{0.512} & \textbf{0.688}
+& \textbf{0.719} & \textbf{0.473} & \textbf{0.747} \\
+
+\hline
+\end{tabular}
+\end{table}
