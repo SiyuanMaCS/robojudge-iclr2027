@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Plot signed PA scoring bias relative to human ratings.
-
-This script reads final800 human labels and selected model prediction JSONL files,
-then writes a compact diverging bar chart. It uses Pillow to avoid requiring a
-full plotting stack in the release repository.
-"""
+"""Plot signed PA scoring bias relative to human ratings."""
 
 from __future__ import annotations
 
@@ -24,16 +19,15 @@ MODELS = [
     ("GPT-5.5", "gpt_5_5_4fps.jsonl"),
     ("Gemini-3.7", "gemini_3_7_flash.jsonl"),
     ("Qwen3.5-9B", "qwen3_5_9b_4fps.jsonl"),
-    ("Cosmos-Reason2-2B", "cosmos_reason2_2b.jsonl"),
+    ("Cosmos-R2-2B", "cosmos_reason2_2b.jsonl"),
 ]
 
 COLORS = {
-    "lower": "#3b82c4",
-    "exact": "#d6d9df",
-    "higher": "#d95f5f",
-    "text": "#20242a",
-    "muted": "#666f7a",
-    "grid": "#e7e9ee",
+    "lower": "#2f6fb0",
+    "exact": "#d8dce3",
+    "higher": "#c84f4f",
+    "text": "#1f252d",
+    "muted": "#69717d",
     "bg": "#ffffff",
 }
 
@@ -49,16 +43,17 @@ def load_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont | ImageFo
     return ImageFont.load_default()
 
 
-def parse_score(row: dict, axis: str = "PA") -> int | None:
+def parse_score(row: dict) -> int | None:
     keys = ("physical_adherence", "score", "pa_score")
     for key in keys:
         value = row.get(key)
-        if value is not None:
-            try:
-                score = int(value)
-            except (TypeError, ValueError):
-                continue
-            return score if 1 <= score <= 5 else None
+        if value is None:
+            continue
+        try:
+            score = int(value)
+        except (TypeError, ValueError):
+            continue
+        return score if 1 <= score <= 5 else None
 
     text = row.get("predict") or row.get("response") or row.get("output") or ""
     if not isinstance(text, str):
@@ -75,12 +70,13 @@ def parse_score(row: dict, axis: str = "PA") -> int | None:
         except json.JSONDecodeError:
             continue
         for key in keys:
-            if key in obj:
-                try:
-                    score = int(obj[key])
-                except (TypeError, ValueError):
-                    continue
-                return score if 1 <= score <= 5 else None
+            if key not in obj:
+                continue
+            try:
+                score = int(obj[key])
+            except (TypeError, ValueError):
+                continue
+            return score if 1 <= score <= 5 else None
 
     match = re.search(r'"physical_adherence"\s*:\s*([1-5])', text)
     return int(match.group(1)) if match else None
@@ -103,8 +99,6 @@ def load_predictions(filename: str, item_ids: set[str]) -> dict[str, int]:
             item_id = row.get("item_id")
             if item_id not in item_ids:
                 continue
-            # Some release prediction files omit an explicit axis field and store
-            # only the relevant score key; keep those rows if a PA score parses.
             if row.get("axis") not in (None, "PA"):
                 continue
             score = parse_score(row)
@@ -129,76 +123,93 @@ def compute_stats() -> list[dict]:
             else:
                 exact += 1
         n = lower + exact + higher
-        stats.append({
-            "model": model_name,
-            "n": n,
-            "lower": lower / n * 100,
-            "exact": exact / n * 100,
-            "higher": higher / n * 100,
-        })
+        stats.append(
+            {
+                "model": model_name,
+                "lower": lower / n * 100,
+                "exact": exact / n * 100,
+                "higher": higher / n * 100,
+            }
+        )
     return stats
+
+
+def text_width(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.ImageFont) -> int:
+    box = draw.textbbox((0, 0), text, font=font)
+    return box[2] - box[0]
+
+
+def draw_centered(
+    draw: ImageDraw.ImageDraw,
+    box: tuple[float, float, float, float],
+    text: str,
+    font: ImageFont.ImageFont,
+    fill: str,
+) -> None:
+    x0, y0, x1, y1 = box
+    bbox = draw.textbbox((0, 0), text, font=font)
+    w = bbox[2] - bbox[0]
+    h = bbox[3] - bbox[1]
+    draw.text((x0 + (x1 - x0 - w) / 2, y0 + (y1 - y0 - h) / 2 - 1), text, fill=fill, font=font)
 
 
 def draw_chart(stats: list[dict]) -> None:
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-    width, height = 1120, 470
-    margin_l, margin_r = 230, 70
-    plot_l, plot_r = margin_l, width - margin_r
-    center_x = (plot_l + plot_r) // 2
-    scale = (plot_r - plot_l) / 100.0
-    row_h, bar_h = 60, 30
-    top = 120
-
+    width, height = 900, 320
     img = Image.new("RGB", (width, height), COLORS["bg"])
     draw = ImageDraw.Draw(img)
-    font_title = load_font(26, bold=True)
-    font_label = load_font(18)
-    font_label_bold = load_font(18, bold=True)
-    font_small = load_font(15)
-    font_axis = load_font(14)
 
-    draw.text((margin_l, 30), "Signed PA Scoring Bias Relative to Human Ratings", fill=COLORS["text"], font=font_title)
-    draw.text((margin_l, 66), "Bars show whether model scores are lower than, equal to, or higher than human PA labels.", fill=COLORS["muted"], font=font_small)
+    font_title = load_font(22, bold=True)
+    font_label = load_font(16)
+    font_label_bold = load_font(16, bold=True)
+    font_small = load_font(13)
+    font_pct = load_font(13, bold=True)
 
-    # Axis ticks for percent points around the centered exact segment.
-    for pct in [-50, -25, 0, 25, 50]:
-        x = center_x + pct * scale
-        draw.line((x, top - 28, x, top + row_h * len(stats) - 8), fill=COLORS["grid"], width=1)
-        label = f"{abs(pct)}%" if pct else "0"
-        bbox = draw.textbbox((0, 0), label, font=font_axis)
-        draw.text((x - (bbox[2] - bbox[0]) / 2, top - 50), label, fill=COLORS["muted"], font=font_axis)
+    left = 170
+    right = 42
+    bar_w = width - left - right
+    bar_h = 24
+    row_gap = 41
+    top = 88
 
-    draw.text((plot_l, top - 78), "Lower than human", fill=COLORS["lower"], font=font_small)
-    exact_label = "Exact match"
-    bbox = draw.textbbox((0, 0), exact_label, font=font_small)
-    draw.text((center_x - (bbox[2] - bbox[0]) / 2, top - 78), exact_label, fill=COLORS["muted"], font=font_small)
-    higher_label = "Higher than human"
-    bbox = draw.textbbox((0, 0), higher_label, font=font_small)
-    draw.text((plot_r - (bbox[2] - bbox[0]), top - 78), higher_label, fill=COLORS["higher"], font=font_small)
+    draw.text((left, 24), "Signed PA bias vs. human ratings", fill=COLORS["text"], font=font_title)
+
+    legend = [("Lower", "lower"), ("Exact", "exact"), ("Higher", "higher")]
+    lx = left
+    for label, key in legend:
+        draw.rounded_rectangle((lx, 58, lx + 16, 70), radius=2, fill=COLORS[key])
+        draw.text((lx + 22, 55), label, fill=COLORS["muted"], font=font_small)
+        lx += 92
 
     for idx, stat in enumerate(stats):
-        y = top + idx * row_h
+        y = top + idx * row_gap
         model_font = font_label_bold if stat["model"] == "RoboJudge" else font_label
-        draw.text((34, y + 5), stat["model"], fill=COLORS["text"], font=model_font)
+        label_w = text_width(draw, stat["model"], model_font)
+        draw.text((left - 18 - label_w, y + 3), stat["model"], fill=COLORS["text"], font=model_font)
 
-        lower_w = stat["lower"] * scale
-        exact_w = stat["exact"] * scale
-        higher_w = stat["higher"] * scale
-        exact_l = center_x - exact_w / 2
-        exact_r = center_x + exact_w / 2
-        lower_l = exact_l - lower_w
-        higher_r = exact_r + higher_w
+        x = left
+        segments = [
+            ("lower", stat["lower"], "white"),
+            ("exact", stat["exact"], COLORS["text"]),
+            ("higher", stat["higher"], "white"),
+        ]
+        for seg_idx, (key, value, text_color) in enumerate(segments):
+            w = bar_w * value / 100.0
+            x0, x1 = x, x + w
+            if seg_idx == 0:
+                draw.rounded_rectangle((x0, y, x1, y + bar_h), radius=5, fill=COLORS[key])
+                draw.rectangle((x1 - 5, y, x1, y + bar_h), fill=COLORS[key])
+            elif seg_idx == len(segments) - 1:
+                draw.rounded_rectangle((x0, y, x1, y + bar_h), radius=5, fill=COLORS[key])
+                draw.rectangle((x0, y, x0 + 5, y + bar_h), fill=COLORS[key])
+            else:
+                draw.rectangle((x0, y, x1, y + bar_h), fill=COLORS[key])
 
-        draw.rounded_rectangle((lower_l, y, exact_l, y + bar_h), radius=4, fill=COLORS["lower"])
-        draw.rectangle((exact_l, y, exact_r, y + bar_h), fill=COLORS["exact"])
-        draw.rounded_rectangle((exact_r, y, higher_r, y + bar_h), radius=4, fill=COLORS["higher"])
+            if value >= 12.0:
+                draw_centered(draw, (x0, y, x1, y + bar_h), f"{value:.0f}%", font_pct, text_color)
+            x = x1
 
-        values = f'{stat["lower"]:.1f} / {stat["exact"]:.1f} / {stat["higher"]:.1f}'
-        draw.text((plot_r - 155, y + 34), values, fill=COLORS["muted"], font=font_small)
-
-    footer = "Numbers are lower / exact / higher percentages on final800 PA labels."
-    draw.text((margin_l, height - 46), footer, fill=COLORS["muted"], font=font_small)
     img.save(OUT_PATH)
 
 
