@@ -20,6 +20,7 @@ MODELS = [
     ("Gemini-3.7", "gemini_3_7_flash.jsonl"),
     ("Qwen3.5-9B", "qwen3_5_9b_4fps.jsonl"),
     ("Cosmos-R2-2B", "cosmos_reason2_2b.jsonl"),
+    ("VideoScore2", "videoscore2_8b.jsonl"),
 ]
 
 COLORS = {
@@ -156,7 +157,7 @@ def draw_centered(
 def draw_chart(stats: list[dict]) -> None:
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-    width, height = 900, 320
+    width, height = 900, 360
     img = Image.new("RGB", (width, height), COLORS["bg"])
     draw = ImageDraw.Draw(img)
 
