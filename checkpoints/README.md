@@ -1,11 +1,34 @@
 # Checkpoints
 
-Large model weights are not copied into this GitHub-sized bundle.
+Large model weights are stored in the private Hugging Face checkpoint repository instead of this GitHub-sized bundle:
 
-Final RoboJudge RL 200-step checkpoint:
-`<checkpoint_workspace>/rl_judge_smoke/checkpoints/trl_sft_aligned_4h20_long_from_lf5_ckpt10_pd2_20260914_1717/checkpoint-200`
+- HF model repo: https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints
 
-SFT reference checkpoint:
-`<checkpoint_workspace>/saves/sft9b_b_officiallocal_videoonly_prompt_2epoch_seed44_8h20_20260921/checkpoint-374`
+## Released Checkpoints
 
-Machine-readable details: `checkpoints/CHECKPOINTS.json`.
+Final RoboJudge SFT+RL checkpoint used for the main submission result:
+
+`HuggingFriends/robojudge-iclr2027-checkpoints/final_rl_200step`
+
+SFT reference checkpoint used for the SFT ablation/reproduction:
+
+`HuggingFriends/robojudge-iclr2027-checkpoints/sft_reference_epoch2_step374`
+
+Download both checkpoints with:
+
+```bash
+hf download HuggingFriends/robojudge-iclr2027-checkpoints \
+  --repo-type model \
+  --local-dir checkpoints_hf
+```
+
+Download only the final RoboJudge checkpoint with:
+
+```bash
+hf download HuggingFriends/robojudge-iclr2027-checkpoints \
+  --repo-type model \
+  --include 'final_rl_200step/*' \
+  --local-dir checkpoints_hf
+```
+
+Machine-readable details are in `checkpoints/CHECKPOINTS.json`.

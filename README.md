@@ -2,6 +2,10 @@
 
 Clean GitHub release bundle for the RoboJudge ICLR submission. The root keeps final data, judge outputs, evaluation metrics, and RoboJudge reproduction code.
 
+Reviewer mirror: <https://huggingface.co/datasets/HuggingFriends/robojudge-iclr2027-reviewer-bundle>.
+
+Large checkpoints: <https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints>.
+
 Paper repository reference: <https://github.com/yqi19/Siyuan-RoboJudge.git>, branch `main`, confirmed paper commit `bcc4078`.
 
 `prompt.txt` records the exact PA/IA inference prompts used by `code/inference.py`.
@@ -37,11 +41,13 @@ bash scripts/join_prediction_parts.sh
 
 SFT reproduction expects LLaMAFactory to be installed externally; this bundle keeps only the RoboJudge-specific config and launch template.
 
+See `REPRODUCIBILITY.md` for reviewer-oriented setup, checkpoint download, inference, and evaluation commands.
+
 ## Checkpoints
 
 - `checkpoints/README.md`
 - `checkpoints/CHECKPOINTS.json`
 
-Final RL 200-step checkpoint is referenced there. Model weights are not copied into this GitHub-sized bundle.
+Final RL 200-step and SFT reference checkpoints are referenced there. Model weights are not copied into this GitHub-sized bundle; they are stored in the HF checkpoint repo above.
 
 Large model checkpoints and raw run directories are intentionally excluded from git.

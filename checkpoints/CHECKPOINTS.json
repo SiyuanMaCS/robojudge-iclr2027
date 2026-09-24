@@ -1,58 +1,55 @@
 {
-  "final_rl_200step": {
-    "status": "selected_final_rl_for_release",
-    "path": "<checkpoint_workspace>/rl_judge_smoke/checkpoints/trl_sft_aligned_4h20_long_from_lf5_ckpt10_pd2_20260914_1717/checkpoint-200",
-    "copied_into_release": false,
-    "reason_not_copied": "model.safetensors is about 37GB; GitHub/rebuttal bundle keeps code, data, results, metadata, and exact internal checkpoint reference.",
-    "files": [
-      {
-        "name": "chat_template.jinja",
-        "bytes": 7756
-      },
-      {
-        "name": "config.json",
-        "bytes": 2928
-      },
-      {
-        "name": "generation_config.json",
-        "bytes": 163
-      },
-      {
-        "name": "model.safetensors",
-        "bytes": 37639349416
-      },
-      {
-        "name": "processor_config.json",
-        "bytes": 1191
-      },
-      {
-        "name": "tokenizer.json",
-        "bytes": 19989493
-      },
-      {
-        "name": "tokenizer_config.json",
-        "bytes": 1270
-      },
-      {
-        "name": "trainer_state.json",
-        "bytes": 199895
-      },
-      {
-        "name": "training_args.bin",
-        "bytes": 7825
-      }
-    ],
-    "result_json_in_release": "results/final800/predictions/robojudge_rl_latest.jsonl",
-    "source_result_json": "<source_workspace>/eval802_scoring_prep/robojudge_rl_ckpt200_final800_officialproto_4fps512_4shard_4h20_20260921/pred_robojudge_rl_ckpt200_officialproto_4fps_final800_4shard_merged.jsonl",
-    "rl_code": "code/rl/train.py",
-    "rl_launcher": "code/rl/run_release_template.sh"
-  },
-  "sft_checkpoint_epoch2_step374": {
-    "status": "standard_b_sft_reference",
-    "path": "<checkpoint_workspace>/saves/sft9b_b_officiallocal_videoonly_prompt_2epoch_seed44_8h20_20260921/checkpoint-374",
-    "copied_into_release": false,
-    "result_json_in_release": "results/final800/predictions/robojudge_sft_latest.jsonl",
-    "sft_config": "code/sft/train.yaml",
-    "sft_launcher": "code/sft/run_release_template.sh"
+  "hf_model_repo": "HuggingFriends/robojudge-iclr2027-checkpoints",
+  "hf_model_repo_url": "https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints",
+  "access": "private; grant reviewer access as needed for reproduction",
+  "checkpoints": {
+    "final_rl_200step": {
+      "status": "selected_final_rl_for_release",
+      "description": "Final RoboJudge SFT+RL checkpoint used for the main submission result.",
+      "hf_repo": "HuggingFriends/robojudge-iclr2027-checkpoints",
+      "hf_subdir": "final_rl_200step",
+      "hf_url": "https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints/tree/main/final_rl_200step",
+      "stored_in_hf": true,
+      "copied_into_github_release": false,
+      "reason_not_copied": "model.safetensors is about 37GB; GitHub keeps code, data, predictions, metrics, and reproduction metadata while weights live in Hugging Face.",
+      "files": [
+        {"name": "chat_template.jinja", "bytes": 7756},
+        {"name": "config.json", "bytes": 2928},
+        {"name": "generation_config.json", "bytes": 163},
+        {"name": "model.safetensors", "bytes": 37639349416},
+        {"name": "processor_config.json", "bytes": 1191},
+        {"name": "tokenizer.json", "bytes": 19989493},
+        {"name": "tokenizer_config.json", "bytes": 1270},
+        {"name": "trainer_state.json", "bytes": 199895},
+        {"name": "training_args.bin", "bytes": 7825}
+      ],
+      "result_json_in_release": "results/final800/predictions/robojudge_rl_latest.jsonl",
+      "rl_code": "code/rl/train.py",
+      "rl_launcher": "code/rl/run_release_template.sh"
+    },
+    "sft_reference_epoch2_step374": {
+      "status": "standard_b_sft_reference",
+      "description": "SFT reference checkpoint used for SFT ablation and reproduction.",
+      "hf_repo": "HuggingFriends/robojudge-iclr2027-checkpoints",
+      "hf_subdir": "sft_reference_epoch2_step374",
+      "hf_url": "https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints/tree/main/sft_reference_epoch2_step374",
+      "stored_in_hf": true,
+      "copied_into_github_release": false,
+      "reason_not_copied": "model.safetensors is about 18GB; GitHub keeps code, data, predictions, metrics, and reproduction metadata while weights live in Hugging Face.",
+      "files": [
+        {"name": "chat_template.jinja", "bytes": 7756},
+        {"name": "config.json", "bytes": 2928},
+        {"name": "generation_config.json", "bytes": 163},
+        {"name": "model.safetensors", "bytes": 18819722392},
+        {"name": "processor_config.json", "bytes": 1191},
+        {"name": "tokenizer.json", "bytes": 19989493},
+        {"name": "tokenizer_config.json", "bytes": 1270},
+        {"name": "trainer_state.json", "bytes": 284325},
+        {"name": "training_args.bin", "bytes": 7825}
+      ],
+      "result_json_in_release": "results/final800/predictions/robojudge_sft_latest.jsonl",
+      "sft_config": "code/sft/train.yaml",
+      "sft_launcher": "code/sft/run_release_template.sh"
+    }
   }
 }
