@@ -22,8 +22,9 @@ overwrite_cache: true
 preprocessing_num_workers: 8
 dataloader_num_workers: 4
 output_dir: ${OUTPUT_DIR}
-logging_steps: 1
-save_steps: 187
+logging_steps: 5
+save_strategy: epoch
+save_total_limit: 1
 plot_loss: true
 overwrite_output_dir: true
 save_only_model: true
@@ -31,7 +32,7 @@ report_to: none
 per_device_train_batch_size: 4
 gradient_accumulation_steps: 4
 learning_rate: 1.0e-5
-num_train_epochs: 3.0
+num_train_epochs: 1.0
 lr_scheduler_type: cosine
 warmup_ratio: 0.1
 bf16: true

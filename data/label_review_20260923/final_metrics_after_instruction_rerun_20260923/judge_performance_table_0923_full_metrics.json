@@ -1,6 +1,6 @@
 {
-  "gold": "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/label_review_20260923/final800_label_review_20260923.jsonl",
-  "derived_robojudge": "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/label_review_20260923/final_metrics_after_instruction_rerun_20260923/robojudge_submission_with_instruction_rerun_2ia_20260923.jsonl",
+  "gold": "data/label_review_20260923/final800_label_review_20260923.jsonl",
+  "derived_robojudge": "data/label_review_20260923/final_metrics_after_instruction_rerun_20260923/robojudge_submission_with_instruction_rerun_2ia_20260923.jsonl",
   "metrics": {
     "Gemini-3.7-Flash": {
       "rows": 802,

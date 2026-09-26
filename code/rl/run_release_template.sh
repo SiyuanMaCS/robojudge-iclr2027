@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 NUM_GPUS="${NUM_GPUS:-4}"
-MAX_STEPS="${MAX_STEPS:--1}"
+MAX_STEPS="${MAX_STEPS:-200}"
 SAVE_STEPS="${SAVE_STEPS:-50}"
 MAX_COMPLETION_LENGTH="${MAX_COMPLETION_LENGTH:-512}"
 

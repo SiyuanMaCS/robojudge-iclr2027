@@ -1,55 +1,207 @@
 {
   "hf_model_repo": "HuggingFriends/robojudge-iclr2027-checkpoints",
   "hf_model_repo_url": "https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints",
-  "access": "private; grant reviewer access as needed for reproduction",
+  "access": "public",
   "checkpoints": {
     "final_rl_200step": {
-      "status": "selected_final_rl_for_release",
+      "status": "uploaded_and_verified",
       "description": "Final RoboJudge SFT+RL checkpoint used for the main submission result.",
-      "hf_repo": "HuggingFriends/robojudge-iclr2027-checkpoints",
       "hf_subdir": "final_rl_200step",
-      "hf_url": "https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints/tree/main/final_rl_200step",
-      "stored_in_hf": true,
-      "copied_into_github_release": false,
-      "reason_not_copied": "model.safetensors is about 37GB; GitHub keeps code, data, predictions, metrics, and reproduction metadata while weights live in Hugging Face.",
+      "hf_commit": "22df40134103728ffa125220c2e8b10abc494a72",
+      "original_fp32_mirror": "HuggingFriends/RoboJudge-9B/model.safetensors",
+      "release_dtype": "bfloat16",
+      "source_dtype": "float32",
+      "source_weight_sha256": "34e17912b402182ab8588494d2715461c7120761e98f8b055b1adbbee400e103",
+      "conversion": "Each floating-point tensor was cast from FP32 to BF16 and saved as standard sharded safetensors; model structure is unchanged.",
       "files": [
-        {"name": "chat_template.jinja", "bytes": 7756},
-        {"name": "config.json", "bytes": 2928},
-        {"name": "generation_config.json", "bytes": 163},
-        {"name": "model.safetensors", "bytes": 37639349416},
-        {"name": "processor_config.json", "bytes": 1191},
-        {"name": "tokenizer.json", "bytes": 19989493},
-        {"name": "tokenizer_config.json", "bytes": 1270},
-        {"name": "trainer_state.json", "bytes": 199895},
-        {"name": "training_args.bin", "bytes": 7825}
+        {
+          "name": "chat_template.jinja",
+          "bytes": 7756,
+          "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+        },
+        {
+          "name": "config.json",
+          "bytes": 2957,
+          "sha256": "4e56d2d36e48dcc982419bf47f8807bcf834632add42bdc4222397c9fd8b836a"
+        },
+        {
+          "name": "generation_config.json",
+          "bytes": 163,
+          "sha256": "c6d7b111043eeefcd620e30bf0963fa5bac15bd0c8392d9326ce4ec5e1577458"
+        },
+        {
+          "name": "model-00001-of-00010.safetensors",
+          "bytes": 2034237568,
+          "sha256": "179da8807833f2cf9fd5e367fd589313c5e38cdeb8f1796b0ab8fbd2a0fa8f2f"
+        },
+        {
+          "name": "model-00002-of-00010.safetensors",
+          "bytes": 2034237592,
+          "sha256": "6b80448403e5d4270b486174f092f2cc3db09c8f8af435bf9cc4c734e655a005"
+        },
+        {
+          "name": "model-00003-of-00010.safetensors",
+          "bytes": 1965378160,
+          "sha256": "326b4543bfff9ada95383536f8cac726aae31399e003b3a470e3a6a66b21e93a"
+        },
+        {
+          "name": "model-00004-of-00010.safetensors",
+          "bytes": 1998940480,
+          "sha256": "273c55fa3fbd58cc3c3c53c8c04dd20fdf497b68531d12310f4d8ea2a8e1ba49"
+        },
+        {
+          "name": "model-00005-of-00010.safetensors",
+          "bytes": 1998333752,
+          "sha256": "c87688d970adfbc7ce1f4277b23c10249f9f25cf081410ecfbca45e25212c24e"
+        },
+        {
+          "name": "model-00006-of-00010.safetensors",
+          "bytes": 1965386576,
+          "sha256": "987d20f596497e3ee22dc7cdc1c018cf008d16a265ec4caa38648478f074443d"
+        },
+        {
+          "name": "model-00007-of-00010.safetensors",
+          "bytes": 1931224248,
+          "sha256": "d5912f921c46fb02791b60f5d33f12d9a31b12e66231e702b2ebe96ddb5d326a"
+        },
+        {
+          "name": "model-00008-of-00010.safetensors",
+          "bytes": 1948019744,
+          "sha256": "36ae1d4965573a012fb34782203cf7a8fb8543998b8b6443fb5a4b529f489771"
+        },
+        {
+          "name": "model-00009-of-00010.safetensors",
+          "bytes": 1931224192,
+          "sha256": "df746c35eee583a4093a681e537bad2a75b2f83413bd919cd43203be50ba083c"
+        },
+        {
+          "name": "model-00010-of-00010.safetensors",
+          "bytes": 1012738136,
+          "sha256": "581d98d2a625dbc88db261765bba602fa50cc4d11d0b751dd1576b142a48ddd0"
+        },
+        {
+          "name": "model.safetensors.index.json",
+          "bytes": 69217,
+          "sha256": "ea0e4371d7bf1111693aa47c5ead7758a18201b6b7535e3d96718aac4aa464e5"
+        },
+        {
+          "name": "processor_config.json",
+          "bytes": 1191,
+          "sha256": "d89ef49ce9cd37fbf510158e13c1ef063d9286411c1ec9049932dbe0487143b1"
+        },
+        {
+          "name": "tokenizer.json",
+          "bytes": 19989493,
+          "sha256": "b6d27c11283798debbfbcb1bd3bbdbcebac6c9b20d0be0c5b79231c97de97501"
+        },
+        {
+          "name": "tokenizer_config.json",
+          "bytes": 1270,
+          "sha256": "e51022279e8337ae447770cfe9846ce1290dea26a2325305a712a885ded3fc0b"
+        }
       ],
-      "result_json_in_release": "results/final800/predictions/robojudge_rl_latest.jsonl",
+      "result_json_in_release": "results/final800/predictions/robojudge_submission.jsonl",
       "rl_code": "code/rl/train.py",
       "rl_launcher": "code/rl/run_release_template.sh"
     },
-    "sft_reference_epoch2_step374": {
-      "status": "standard_b_sft_reference",
-      "description": "SFT reference checkpoint used for SFT ablation and reproduction.",
-      "hf_repo": "HuggingFriends/robojudge-iclr2027-checkpoints",
-      "hf_subdir": "sft_reference_epoch2_step374",
-      "hf_url": "https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints/tree/main/sft_reference_epoch2_step374",
-      "stored_in_hf": true,
-      "copied_into_github_release": false,
-      "reason_not_copied": "model.safetensors is about 18GB; GitHub keeps code, data, predictions, metrics, and reproduction metadata while weights live in Hugging Face.",
+    "sft_reference_1epoch": {
+      "status": "uploaded_and_verified",
+      "description": "One-epoch SFT reference checkpoint used for the SFT ablation in the paper.",
+      "hf_subdir": "sft_reference_1epoch",
+      "release_dtype": "bfloat16",
+      "source_weight_sha256": "6e2eb1d4a613d908aae4404aed669bfe59efd6d95be49e242d387cb938cd80aa",
       "files": [
-        {"name": "chat_template.jinja", "bytes": 7756},
-        {"name": "config.json", "bytes": 2928},
-        {"name": "generation_config.json", "bytes": 163},
-        {"name": "model.safetensors", "bytes": 18819722392},
-        {"name": "processor_config.json", "bytes": 1191},
-        {"name": "tokenizer.json", "bytes": 19989493},
-        {"name": "tokenizer_config.json", "bytes": 1270},
-        {"name": "trainer_state.json", "bytes": 284325},
-        {"name": "training_args.bin", "bytes": 7825}
+        {
+          "name": "chat_template.jinja",
+          "bytes": 7756,
+          "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+        },
+        {
+          "name": "config.json",
+          "bytes": 2929,
+          "sha256": "1cca789c4e22c9fae4bef571660a10c9721092d5b74aef36d2ba84eb7913f583"
+        },
+        {
+          "name": "generation_config.json",
+          "bytes": 163,
+          "sha256": "c6d7b111043eeefcd620e30bf0963fa5bac15bd0c8392d9326ce4ec5e1577458"
+        },
+        {
+          "name": "model-00001-of-00010.safetensors",
+          "bytes": 2034237568,
+          "sha256": "ed9c82774c1d92281e3e9a8215b3a33b5087cd1164ffeec4b0411f3ecd662791"
+        },
+        {
+          "name": "model-00002-of-00010.safetensors",
+          "bytes": 2034237592,
+          "sha256": "2bd6d8ef6edace5fa035031bf2a6848efd9f1e7e925e8c878a4fa9dafaf10671"
+        },
+        {
+          "name": "model-00003-of-00010.safetensors",
+          "bytes": 1965378160,
+          "sha256": "d3fcef92b893889f97e3dc4aec4c6d51fea783aaeb3c6ff632fa1a836826aefe"
+        },
+        {
+          "name": "model-00004-of-00010.safetensors",
+          "bytes": 1998940480,
+          "sha256": "07dfbcc1a600cc96e598b034c5171aba5b2a9bebce3ee68f88c9d2962eb99a7f"
+        },
+        {
+          "name": "model-00005-of-00010.safetensors",
+          "bytes": 1998333752,
+          "sha256": "e48dca92d0f3f0d9b1d2cbacbeb13c3a3db46f2f4d925588bd3862d81240e8a1"
+        },
+        {
+          "name": "model-00006-of-00010.safetensors",
+          "bytes": 1965386576,
+          "sha256": "66b8afcc40eb885afdac5cbaeef6885e6598cf03ce272d75caf7d8980f5b3fc6"
+        },
+        {
+          "name": "model-00007-of-00010.safetensors",
+          "bytes": 1931224248,
+          "sha256": "f2bdaa4369675cc7a11142849859c34575934c6c3861636e6c83b31183e27b9f"
+        },
+        {
+          "name": "model-00008-of-00010.safetensors",
+          "bytes": 1948019744,
+          "sha256": "2772c7fe016dfe4ad3e984a4f6e1fdec2def344ea74ca61717cee3f138fec863"
+        },
+        {
+          "name": "model-00009-of-00010.safetensors",
+          "bytes": 1931224192,
+          "sha256": "87b1aa28c122f7a0a1c72fc5b13a9d68a054ee608b34a9fabac74be193171217"
+        },
+        {
+          "name": "model-00010-of-00010.safetensors",
+          "bytes": 1012738136,
+          "sha256": "b18a1670fa6d18091f7e1ffb22f46d8baa5c5f768879c1f4326ad8fb020f3e93"
+        },
+        {
+          "name": "model.safetensors.index.json",
+          "bytes": 69217,
+          "sha256": "ea0e4371d7bf1111693aa47c5ead7758a18201b6b7535e3d96718aac4aa464e5"
+        },
+        {
+          "name": "processor_config.json",
+          "bytes": 1191,
+          "sha256": "d89ef49ce9cd37fbf510158e13c1ef063d9286411c1ec9049932dbe0487143b1"
+        },
+        {
+          "name": "tokenizer.json",
+          "bytes": 19989325,
+          "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523"
+        },
+        {
+          "name": "tokenizer_config.json",
+          "bytes": 1192,
+          "sha256": "4a5bac6704ca726f9a48fe654a01eb5ea4d01d9d498aaf23035c74fa2a4f240a"
+        }
       ],
       "result_json_in_release": "results/final800/predictions/robojudge_sft_latest.jsonl",
       "sft_config": "code/sft/train.yaml",
-      "sft_launcher": "code/sft/run_release_template.sh"
+      "sft_launcher": "code/sft/run_release_template.sh",
+      "hf_commit": "22df40134103728ffa125220c2e8b10abc494a72",
+      "conversion": "The verified BF16 checkpoint was resharded into standard safetensors without changing tensor values."
     }
   }
 }

@@ -59,6 +59,14 @@ def item_id(record):
     raise KeyError(f'no item id keys in {record.keys()}')
 
 
+def resolve_item_id(record, gold):
+    iid = str(item_id(record)).removesuffix('.mp4')
+    if (iid, 'PA') in gold or (iid, 'IA') in gold:
+        return iid
+    prefixed = f'data__{iid}'
+    return prefixed if (prefixed, 'PA') in gold or (prefixed, 'IA') in gold else iid
+
+
 def load_gold(path):
     gold = {}
     for line in path.open(encoding='utf-8'):
@@ -95,8 +103,36 @@ for line in pred_path.open(encoding='utf-8'):
     if not line.strip():
         continue
     record = json.loads(line)
-    axis = str(record.get('axis')).upper()
-    iid = item_id(record)
+    iid = resolve_item_id(record, gold)
+    direct_scores = {
+        'PA': record.get('physical_adherence'),
+        'IA': record.get('instruction_alignment'),
+    }
+    if any(value is not None for value in direct_scores.values()):
+        for direct_axis, value in direct_scores.items():
+            if value is None:
+                continue
+            try:
+                pred = float(value)
+            except (TypeError, ValueError):
+                nulls[direct_axis] += 1
+                continue
+            g = gold.get((iid, direct_axis))
+            if g is None:
+                missing_gold[direct_axis] += 1
+                continue
+            rows[direct_axis].append((g, pred))
+        continue
+    axis = str(record.get('axis') or '').upper()
+    if axis not in ('PA', 'IA'):
+        prompt = str(record.get('prompt', ''))
+        prediction = str(record.get('predict', ''))
+        if 'physical_adherence' in prediction or 'PHYSICAL REALISM' in prompt:
+            axis = 'PA'
+        elif 'instruction_alignment' in prediction or 'manipulation task' in prompt:
+            axis = 'IA'
+        else:
+            continue
     pred = get_score(record.get('predict'))
     if pred is None:
         nulls[axis] += 1
@@ -112,8 +148,17 @@ for axis in ('PA', 'IA'):
     gs = [g for g, _ in pairs]
     ps = [p for _, p in pairs]
     n = len(pairs)
-    exact = sum(g == p for g, p in pairs) / n
-    relaxed = sum(abs(g - p) <= 1 for g, p in pairs) / n
+    if n == 0:
+        print(f'{axis} n=0 null={nulls[axis]} missing_gold={missing_gold[axis]}')
+        print('  pearson=nan')
+        print('  spearman=nan')
+        print('  exact=nan')
+        print('  relaxed=nan')
+        print('  mse=nan')
+        continue
+    rounded = [min(5, max(1, math.floor(p + 0.5))) for p in ps]
+    exact = sum(g == p for g, p in zip(gs, rounded)) / n
+    relaxed = sum(abs(g - p) <= 1 for g, p in zip(gs, rounded)) / n
     mse = sum((g - p) ** 2 for g, p in pairs) / n
     print(f'{axis} n={n} null={nulls[axis]} missing_gold={missing_gold[axis]}')
     print(f'  pearson={pearson(gs, ps):.6f}')
@@ -121,3 +166,18 @@ for axis in ('PA', 'IA'):
     print(f'  exact={exact:.6f}')
     print(f'  relaxed={relaxed:.6f}')
     print(f'  mse={mse:.6f}')
+
+pooled_pairs = rows['PA'] + rows['IA']
+if not pooled_pairs:
+    raise SystemExit('no scored predictions matched the gold file')
+if rows['PA'] and rows['IA']:
+    pooled_gold = [gold_score for gold_score, _ in pooled_pairs]
+    pooled_pred = [pred_score for _, pred_score in pooled_pairs]
+    overall_exact = sum(g == min(5, max(1, math.floor(p + 0.5))) for g, p in pooled_pairs) / len(pooled_pairs)
+    overall_mse = sum((g - p) ** 2 for g, p in pooled_pairs) / len(pooled_pairs)
+    print(f'Overall n={len(pooled_pairs)}')
+    print(f'  pearson={pearson(pooled_gold, pooled_pred):.6f}')
+    print(f'  exact={overall_exact:.6f}')
+    print(f'  mse={overall_mse:.6f}')
+else:
+    print('Overall unavailable because one evaluation axis is missing')

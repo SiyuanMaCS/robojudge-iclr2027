@@ -163,7 +163,7 @@
     "model": "Qwen3.5-27B formal",
     "exists": "True",
     "rows": "875",
-    "sha256": "685ab1083d75cf50bb20ac97e7393216d871923d3eb13ee78b4ff7ed87a98b05",
+    "sha256": "89af81a502aa4146225a727be99019302b6efde9e68ba04de1ab5b4f7f015e70",
     "link": "predictions/qwen3_5_27b_formal.jsonl",
     "prediction_file": "predictions/qwen3_5_27b_formal.jsonl"
   },
@@ -193,7 +193,7 @@
   },
   {
     "model": "Qwen3.5-27B 8fps",
-    "exists": "True",
+    "exists": "False",
     "rows": "1600",
     "sha256": "51ba4f9b6ba30b06caaef8599cd83e58d47756b30a468ef7c1d6025cd4ea433c",
     "link": "predictions/qwen3_5_27b_8fps.jsonl",
@@ -203,7 +203,7 @@
     "model": "Qwen3.5-9B formal",
     "exists": "True",
     "rows": "875",
-    "sha256": "b3298ced095a1e7c989db1fd40de4df326a749448eef0b99fd62ea6ca12e9cff",
+    "sha256": "d59bac4a4bb75af7c52b4f6c82b8a84163b4352d1ee19b2755f35647e5b12af0",
     "link": "predictions/qwen3_5_9b_formal.jsonl",
     "prediction_file": "predictions/qwen3_5_9b_formal.jsonl"
   },
@@ -225,7 +225,7 @@
   },
   {
     "model": "Qwen3.5-9B 8fps",
-    "exists": "True",
+    "exists": "False",
     "rows": "1600",
     "sha256": "a172d2c534e2651455787b40a6e4d84c6083b9534db95319893d430eeff37cb7",
     "link": "predictions/qwen3_5_9b_8fps.jsonl",
@@ -283,7 +283,7 @@
     "model": "Qwen3.5-4B",
     "exists": "True",
     "rows": "875",
-    "sha256": "c8aee39d99056c1ef2c835af5b52b1adc81634dba7af8c5c30d14a7f075c31de",
+    "sha256": "8822dda949721a38ea4bd94bf9378ffa45bdc806bbcf9cda66b1e8449ac51d64",
     "link": "predictions/qwen3_5_4b.jsonl",
     "prediction_file": "predictions/qwen3_5_4b.jsonl"
   },
@@ -435,7 +435,7 @@
     "model": "RoboJudge-9B submission",
     "exists": "True",
     "rows": "1600",
-    "sha256": "bc2b480131e4a5be14b8228040c42e92ee452b7b964e3fdbfbfcc21d45648cde",
+    "sha256": "1aab7427b4cfc9356a9cdc8340181ce32970fb8384d46d91caa611a65b3b4f5f",
     "link": "predictions/robojudge_submission.jsonl",
     "prediction_file": "predictions/robojudge_submission.jsonl"
   }

@@ -1,14 +1,17 @@
 # Reproducibility Guide
 
-This bundle is intended for reviewer reproduction of the RoboJudge ICLR submission. It contains code, final800 labels, released prediction JSONL files, metrics, prompts, metadata, and links to the large checkpoints.
+This bundle is the complete open reproducibility release for RoboJudge. It
+contains training and inference code, final benchmark labels, released
+prediction JSONL files, metrics, prompts, metadata, and checkpoint links.
 
 ## Repositories
 
 - GitHub release bundle: https://github.com/SiyuanMaCS/robojudge-iclr2027
-- HF reviewer bundle mirror: https://huggingface.co/datasets/HuggingFriends/robojudge-iclr2027-reviewer-bundle
+- HF release bundle mirror: https://huggingface.co/datasets/HuggingFriends/robojudge-iclr2027-reviewer-bundle
 - HF checkpoint repo: https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints
+- HF video assets: https://huggingface.co/datasets/HuggingFriends/mllm-as-embodied-world-judge
 
-The HF repos are private for submission review; grant reviewer access before sharing the final links.
+All release repositories listed above are public.
 
 ## Environment
 
@@ -23,11 +26,18 @@ If conda is not available, `requirements.txt` lists the Python package set used 
 
 ## Data And Predictions
 
-The final evaluation labels are in:
+The reviewed final evaluation labels used by the paper are in:
 
 ```text
 data/test/final800.jsonl
 ```
+
+The training JSON files use paths rooted at `data_root/`. Point `DATA_ROOT` in
+the inference and training launchers to a local checkout of the HF video-assets
+repository. All 12,351 training-video references and all 800 test video/frame
+pairs were verified against that repository before archival.
+The released files contain 12,351 PA records and 11,520 IA records; the 831
+verified real demonstrations are included in the PA file.
 
 Most prediction files are stored directly in `results/final800/predictions/`. Two large baseline prediction files are split into numbered parts to stay below GitHub's single-file size limit. Reconstruct them after cloning with:
 
@@ -43,11 +53,11 @@ results/final800/predictions/parts_manifest.tsv
 
 ## Evaluate Released Predictions
 
-The lightweight evaluator takes prediction JSONL first and gold JSONL second. For the final RoboJudge result:
+The lightweight evaluator takes prediction JSONL first and gold JSONL second. For the final RoboJudge result reported in the paper:
 
 ```bash
 python code/evaluate.py \
-  results/final800/predictions/robojudge_rl_latest.jsonl \
+  results/final800/predictions/robojudge_submission.jsonl \
   data/test/final800.jsonl
 ```
 
@@ -65,6 +75,24 @@ Table-ready metrics used by the release are also stored in:
 results/final800/metrics/metrics.tsv
 results/final800/metrics/metrics.json
 ```
+
+Regenerate the repository-wide SHA256 manifest after changing release files:
+
+```bash
+python scripts/generate_release_manifest.py
+```
+
+Reproduce the paired source-clip bootstrap confidence intervals with:
+
+```bash
+python code/bootstrap_ci.py \
+  --output results/final800/metrics/bootstrap_ci.json
+```
+
+The script uses 10,000 paired replicates by default, treats each
+`dataset/task/episode` as a source-clip cluster, stratifies resampling by source
+corpus, and preserves the paper's pooled PA+IA definition of Overall Pearson
+correlation.
 
 ## Download Checkpoints
 
@@ -86,12 +114,12 @@ hf download HuggingFriends/robojudge-iclr2027-checkpoints \
   --local-dir checkpoints_hf
 ```
 
-Download only the SFT reference checkpoint:
+Download the exact one-epoch SFT reference checkpoint with:
 
 ```bash
 hf download HuggingFriends/robojudge-iclr2027-checkpoints \
   --repo-type model \
-  --include 'sft_reference_epoch2_step374/*' \
+  --include 'sft_reference_1epoch/*' \
   --local-dir checkpoints_hf
 ```
 
@@ -122,4 +150,31 @@ Concatenate shard outputs before running `code/evaluate.py`.
 
 ## Training Reproduction
 
-SFT templates are under `code/sft/`; RL templates are under `code/rl/`. These files preserve the RoboJudge-specific configuration and launch shape. Large raw training workspaces, intermediate checkpoints, and cluster-specific paths are intentionally excluded from this reviewer bundle.
+SFT templates are under `code/sft/`; RL templates are under `code/rl/`. The
+final SFT run uses one epoch, and the release RL launcher defaults to 200 steps.
+These files preserve the RoboJudge-specific configuration and launch shape. Large raw
+training workspaces, intermediate checkpoints, and cluster-specific paths are
+intentionally excluded from the release bundle.
+
+The exact LLaMAFactory `0.9.6.dev0` source snapshot used by SFT is included at
+`third_party/llamafactory-0.9.6.dev0/` and mirrored as
+`archives/llamafactory-0.9.6.dev0-robojudge-snapshot.tar.gz` in the HF release
+bundle. Both copies include the Apache-2.0 license. Install the local snapshot with:
+
+```bash
+pip install ./third_party/llamafactory-0.9.6.dev0
+```
+
+## Archived Paper Source
+
+The HF release bundle also stores
+`archives/Siyuan-RoboJudge-paper-09b9837.tar.gz`, a source snapshot of the paper
+at commit `09b9837b964206d599b284ab3d4084a1bd9bd2ee`.
+
+## Validate The Archive
+
+Run the local integrity and canonical-metric checks with:
+
+```bash
+python scripts/validate_release.py
+```

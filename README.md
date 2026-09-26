@@ -1,53 +1,121 @@
-# RoboJudge ICLR 2027 Release Bundle
+# RoboJudge
 
-Clean GitHub release bundle for the RoboJudge ICLR submission. The root keeps final data, judge outputs, evaluation metrics, and RoboJudge reproduction code.
+RoboJudge provides human-aligned evaluation for embodied video generation along
+two axes: **Physical Adherence (PA)** and **Instruction Alignment (IA)**. This
+repository is the complete open release of benchmark metadata, training data,
+training and inference code, prompts, model outputs, metrics, and reproducibility
+artifacts.
 
-Reviewer mirror: <https://huggingface.co/datasets/HuggingFriends/robojudge-iclr2027-reviewer-bundle>.
+- Project page: <https://siyuanmacs.github.io/robojudge-iclr2027/>
+- Video dataset: <https://huggingface.co/datasets/HuggingFriends/mllm-as-embodied-world-judge>
+- Full release mirror: <https://huggingface.co/datasets/HuggingFriends/robojudge-iclr2027-reviewer-bundle>
+- RoboJudge-9B: <https://huggingface.co/HuggingFriends/RoboJudge-9B>
+- BF16 checkpoints: <https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints>
+- Supplementary examples: [download ZIP](assets/robojudge_supplementary_material.zip)
 
-Large checkpoints: <https://huggingface.co/HuggingFriends/robojudge-iclr2027-checkpoints>.
+## Release contents
 
-Paper repository reference: <https://github.com/yqi19/Siyuan-RoboJudge.git>, branch `main`, confirmed paper commit `bcc4078`.
-
-`prompt.txt` records the exact PA/IA inference prompts used by `code/inference.py`.
+```text
+code/                       training, inference, evaluation, and bootstrap code
+data/train/                 released PA and IA training records
+data/test/final800.jsonl    final expert-adjudicated benchmark labels
+results/final800/           released predictions, metrics, and manifests
+checkpoints/                model file manifests and download instructions
+third_party/                exact LLaMAFactory source snapshot used for SFT
+assets/                     project-page image and supplementary sample ZIP
+```
 
 ## Data
 
-- `data/train/physical_adherence.json`
-- `data/train/instruction_alignment.json`
-- `data/test/final800.jsonl`
-- `data/dataset_info.json`
+The released training files contain:
 
-## Final800 Results
+- `data/train/physical_adherence.json`: 12,351 records, comprising 11,520
+  generated videos and 831 verified successful real demonstrations.
+- `data/train/instruction_alignment.json`: 11,520 generated-video records.
+- `data/test/final800.jsonl`: 800 benchmark videos with final PA/IA labels and
+  six diagnostic sub-scores.
 
-- `results/final800/predictions/` - judge result JSONL files used by the paper table.
-- `results/final800/predictions/parts/` - numbered chunks for the two prediction files that exceed GitHub's 100 MB single-file limit.
-- `results/final800/predictions/parts_manifest.tsv` - expected size, SHA256, and part list for the split files.
-- `results/final800/manifest.csv` - model name, rows, sha256, and release-relative prediction path.
-- `results/final800/metrics/metrics.tsv` - recomputed table metrics.
+The referenced videos are hosted in the public
+[Hugging Face dataset](https://huggingface.co/datasets/HuggingFriends/mllm-as-embodied-world-judge).
+The 22 MB supplementary ZIP contains 10 labeled test examples covering all 8
+source corpora and 10 video-generator families.
 
-Reconstruct the split prediction files after cloning with:
+## Quick start
+
+Create the release environment:
+
+```bash
+conda env create -f env/environment-release.yml
+conda activate robojudge-iclr2027-release
+```
+
+Download the final BF16 checkpoint:
+
+```bash
+hf download HuggingFriends/robojudge-iclr2027-checkpoints \
+  --repo-type model \
+  --include 'final_rl_200step/*' \
+  --local-dir checkpoints_hf
+```
+
+Run inference:
+
+```bash
+CKPT=checkpoints_hf/final_rl_200step \
+DATA_ROOT=/path/to/mllm-as-embodied-world-judge \
+OUT=outputs/robojudge_predictions.jsonl \
+bash code/run_inference.sh
+```
+
+Evaluate the released submission predictions:
+
+```bash
+python code/evaluate.py \
+  results/final800/predictions/robojudge_submission.jsonl \
+  data/test/final800.jsonl
+```
+
+This reproduces PA $r=0.644617$, IA $r=0.775028$, and pooled Overall
+$r=0.719211$.
+
+## Training
+
+The final SFT configuration is in `code/sft/train.yaml`; a portable launcher is
+provided in `code/sft/run_release_template.sh`. The final run used one epoch,
+full-parameter SFT, a global batch size of 64, and a learning rate of $10^{-5}$.
+
+RL code is under `code/rl/`. The release launcher defaults to 200 GRPO steps,
+matching the final checkpoint. The exact LLaMAFactory `0.9.6.dev0` source used
+for SFT is vendored under `third_party/llamafactory-0.9.6.dev0/`.
+
+## Results and integrity
+
+- `results/final800/metrics/metrics.tsv`: table-ready metrics.
+- `results/final800/metrics/bootstrap_ci.json`: paired cluster-bootstrap CIs.
+- `metadata/manifest.csv` and `metadata/manifest.json`: repository-wide file
+  sizes and SHA256 hashes.
+- `checkpoints/CHECKPOINTS.json`: checkpoint-level sizes and SHA256 hashes.
+
+Reconstruct the two prediction files split for GitHub's single-file size limit:
 
 ```bash
 bash scripts/join_prediction_parts.sh
 ```
 
-## RoboJudge Code
+Regenerate and validate the release:
 
-- `code/inference.py` and `code/run_inference.sh`
-- `code/sft/train.yaml`, `code/sft/run_release_template.sh`
-- `code/rl/train.py`, `code/rl/run_release_template.sh`
-- `code/evaluate.py`
-- `scripts/join_prediction_parts.sh`
+```bash
+python scripts/generate_release_manifest.py
+python scripts/validate_release.py
+```
 
-SFT reproduction expects LLaMAFactory to be installed externally; this bundle keeps only the RoboJudge-specific config and launch template.
+See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for the complete workflow and
+[ARCHIVE_STATUS.md](ARCHIVE_STATUS.md) for the verified off-machine asset map.
 
-See `REPRODUCIBILITY.md` for reviewer-oriented setup, checkpoint download, inference, and evaluation commands.
+## License
 
-## Checkpoints
-
-- `checkpoints/README.md`
-- `checkpoints/CHECKPOINTS.json`
-
-Final RL 200-step and SFT reference checkpoints are referenced there. Model weights are not copied into this GitHub-sized bundle; they are stored in the HF checkpoint repo above.
-
-Large model checkpoints and raw run directories are intentionally excluded from git.
+The RoboJudge code in this repository is released under the Apache License 2.0.
+Model and dataset use are additionally subject to the licenses and terms listed
+on their respective Hugging Face cards and the licenses of upstream source
+datasets. The vendored LLaMAFactory snapshot retains its original Apache-2.0
+license.

@@ -1,8 +1,8 @@
 {
-  "gold": "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/label_review_20260923/final800_label_review_20260923.jsonl",
-  "base_robojudge": "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/results/final800/predictions/robojudge_submission.jsonl",
-  "rerun_predictions": "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/runs/release_repro_20260921/instruction_fix_2ia_robojudge_rerun_20260923/pred_instruction_fix_2ia_robojudge_standard.jsonl",
-  "derived_robojudge": "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/label_review_20260923/final_metrics_after_instruction_rerun_20260923/robojudge_submission_with_instruction_rerun_2ia_20260923.jsonl",
+  "gold": "data/label_review_20260923/final800_label_review_20260923.jsonl",
+  "base_robojudge": "results/final800/predictions/robojudge_submission.jsonl",
+  "rerun_predictions": "runs/release_repro_20260921/instruction_fix_2ia_robojudge_rerun_20260923/pred_instruction_fix_2ia_robojudge_standard.jsonl",
+  "derived_robojudge": "data/label_review_20260923/final_metrics_after_instruction_rerun_20260923/robojudge_submission_with_instruction_rerun_2ia_20260923.jsonl",
   "replaced_ia_item_ids": [
     "data__droid__generated_data__wow_wan14b_f105_rewrite__task_0082__episode_0001__1__task_0082_episode_0001",
     "data__epickitchens_human__generated_data__wan22_ti2v5b_1280x704_f169_prefix__task_0014__episode_0001__1__task_0014_episode_0001"

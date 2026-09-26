@@ -1,13 +1,13 @@
 {
   "created_at": "2026-09-23T00:50:00+08:00",
-  "source_final800": "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/test/final800.jsonl",
-  "backup_20260922": "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/label_review_20260923/final800_20260922_before_label_review.jsonl",
-  "corrected_final800": "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/label_review_20260923/final800_label_review_20260923.jsonl",
-  "instruction_rerun_gold_2rows": "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/label_review_20260923/instruction_fix_2ia_gold_20260923.jsonl",
+  "source_final800": "data/test/final800.jsonl",
+  "backup_20260922": "data/label_review_20260923/final800_20260922_before_label_review.jsonl",
+  "corrected_final800": "data/label_review_20260923/final800_label_review_20260923.jsonl",
+  "instruction_rerun_gold_2rows": "data/label_review_20260923/instruction_fix_2ia_gold_20260923.jsonl",
   "sha256": {
-    "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/label_review_20260923/final800_20260922_before_label_review.jsonl": "b1b25302db6bfe31704af714a21ecc12b7bdb2421584710466b80da76521017f",
-    "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/label_review_20260923/final800_label_review_20260923.jsonl": "65315b722a3dff92d88e370e351d4518f0ca6ab42d74e4fd69bee50047e66bef",
-    "/mnt/bn/embodied-lf3/masiyuan/robojudge_iclr2027/data/label_review_20260923/instruction_fix_2ia_gold_20260923.jsonl": "10f828360409296b66753d9e06100ef8dff7ee817de1b031bcb4ba21f2156821"
+    "data/label_review_20260923/final800_20260922_before_label_review.jsonl": "b1b25302db6bfe31704af714a21ecc12b7bdb2421584710466b80da76521017f",
+    "data/label_review_20260923/final800_label_review_20260923.jsonl": "65315b722a3dff92d88e370e351d4518f0ca6ab42d74e4fd69bee50047e66bef",
+    "data/label_review_20260923/instruction_fix_2ia_gold_20260923.jsonl": "10f828360409296b66753d9e06100ef8dff7ee817de1b031bcb4ba21f2156821"
   },
   "patches": [
     {

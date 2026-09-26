@@ -1,0 +1,42 @@
+{
+  "method": {
+    "replicates": 10000,
+    "seed": 20260926,
+    "cluster": "dataset/task/episode",
+    "clusters": 558,
+    "stratified_by": "dataset",
+    "overall": "Pearson correlation after pooling PA and IA axis-level predictions"
+  },
+  "results": {
+    "PA": {
+      "baseline": "Gemini-3.7-Flash",
+      "robojudge_r": 0.6446174242683556,
+      "baseline_r": 0.6106884203153462,
+      "delta_r": 0.03392900395300935,
+      "ci_95": [
+        -0.011364545782496132,
+        0.07754896262607193
+      ]
+    },
+    "IA": {
+      "baseline": "GPT-5.5",
+      "robojudge_r": 0.7750275116254677,
+      "baseline_r": 0.7312976196173745,
+      "delta_r": 0.043729892008093185,
+      "ci_95": [
+        0.0103097438498769,
+        0.07836434479582507
+      ]
+    },
+    "Overall": {
+      "baseline": "Gemini-3.7-Flash",
+      "robojudge_r": 0.7192105093100044,
+      "baseline_r": 0.6297319729579363,
+      "delta_r": 0.08947853635206815,
+      "ci_95": [
+        0.061335100300163294,
+        0.11852117251646907
+      ]
+    }
+  }
+}

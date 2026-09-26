@@ -1,14 +1,11 @@
 # RoboJudge ICLR 2027 release requirements
 # Python: 3.11.2
-# Package index used in the verified internal run: https://bytedpypi.byted.org/simple/
 # CUDA stack in the verified run: CUDA 12.9 Python wheels, H20 GPUs.
 #
-# LLaMA-Factory is required for SFT and should be installed from the release-pinned
-# source snapshot used by the experiments. The verified package version is:
+# LLaMA-Factory is required for SFT and should be installed from the vendored
+# source snapshot at third_party/llamafactory-0.9.6.dev0. The verified version is:
 #   llamafactory==0.9.6.dev0
-# Verified local source path during release validation:
-#   <llamafactory_source>
-# Do not use an arbitrary upstream LLaMA-Factory revision without recording its commit/hash.
+# Do not substitute an arbitrary upstream revision without recording its commit/hash.
 
 accelerate==1.11.0
 av==16.0.0

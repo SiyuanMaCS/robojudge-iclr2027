@@ -1,199 +1,78 @@
 {
+  "paper_repository": "https://github.com/yqi19/Siyuan-RoboJudge",
+  "paper_commit": "09b9837b964206d599b284ab3d4084a1bd9bd2ee",
   "gold": {
-    "path": "./data/test/final800.jsonl",
-    "sha256": "b1b25302db6bfe31704af714a21ecc12b7bdb2421584710466b80da76521017f",
-    "rows": 800
+    "path": "data/test/final800.jsonl",
+    "rows": 800,
+    "sha256": "65315b722a3dff92d88e370e351d4518f0ca6ab42d74e4fd69bee50047e66bef"
   },
-  "manifest": {
-    "csv": "./results/final800/manifest.csv",
-    "json": "./results/final800/manifest.json",
-    "rows": 55
+  "prediction": {
+    "path": "results/final800/predictions/robojudge_submission.jsonl",
+    "rows": 1600,
+    "sha256": "1aab7427b4cfc9356a9cdc8340181ce32970fb8384d46d91caa611a65b3b4f5f"
   },
-  "metrics": {
-    "json": "./results/final800/metrics/metrics.json",
-    "tsv": "./results/final800/metrics/metrics.tsv",
-    "ablation_tsv": "./results/final800/metrics/fps_ablation_metrics.tsv",
-    "table_tex": "./results/final800/metrics/judge_performance_table_latest.tex"
-  },
-  "best_by_column": {
-    "PA_r": "0.647",
-    "PA_match": "0.435",
-    "PA_mse": "0.795",
-    "IA_r": "0.775",
-    "IA_match": "0.510",
-    "IA_mse": "0.686",
-    "Overall_r": "0.720",
-    "Overall_match": "0.472",
-    "Overall_mse": "0.741"
-  },
-  "human_baseline": {
-    "PA_r": "0.615",
-    "PA_match": "0.428",
-    "PA_mse": "1.168",
-    "IA_r": "0.653",
-    "IA_match": "0.444",
-    "IA_mse": "1.220",
-    "Overall_r": "0.635",
-    "Overall_match": "0.436",
-    "Overall_mse": "1.194"
-  },
-  "paper_row_mapping": [
-    {
-      "label": "Gemini-3.7-Flash~\\cite{google2026gemini37flash}",
-      "source": "Gemini-3.7-Flash",
-      "flags": []
+  "paper_metrics": {
+    "rows": 1600,
+    "unparsed": 0,
+    "PA": {
+      "n": 800,
+      "r": 0.6446174242683542,
+      "match": 0.43375,
+      "mse": 0.80625
     },
-    {
-      "label": "Gemini-3.5-Flash~\\cite{google2026gemini35flash}",
-      "source": "Gemini-3.5-Flash",
-      "flags": []
+    "IA": {
+      "n": 800,
+      "r": 0.7750275116254693,
+      "match": 0.5125,
+      "mse": 0.6875
     },
-    {
-      "label": "Gemini-3.1-Pro~\\cite{google2026gemini31pro}",
-      "source": "Gemini-3.1-Pro",
-      "flags": []
-    },
-    {
-      "label": "GPT-5.5~\\cite{openai2026gpt55}",
-      "source": "GPT-5.5 formal",
-      "flags": []
-    },
-    {
-      "label": "GPT-5.2~\\cite{openai2025gpt52}",
-      "source": "GPT-5.2 formal",
-      "flags": []
-    },
-    {
-      "label": "Claude-Opus-4.8~\\cite{anthropic2026claudeopus48}",
-      "source": "Claude-Opus-4.8",
-      "flags": []
-    },
-    {
-      "label": "Claude-Haiku-4.5~\\cite{anthropic2025claudehaiku45}",
-      "source": "Claude-Haiku-4.5",
-      "flags": []
-    },
-    {
-      "label": "Qwen3.7-Max~\\cite{qwen2026qwen37plus}",
-      "source": "Qwen3.7-Max",
-      "flags": []
-    },
-    {
-      "label": "Qwen3.7-Plus~\\cite{qwen2026qwen37plus}",
-      "source": "Qwen3.7-Plus",
-      "flags": []
-    },
-    {
-      "label": "Seed-2.1-Lite~\\cite{seed2026seed21}",
-      "source": "Seed-2.1-Lite",
-      "flags": []
-    },
-    {
-      "label": "Seed-2.0-Pro~\\cite{seed2026seed20}",
-      "source": "Seed-2.0-Pro",
-      "flags": []
-    },
-    {
-      "label": "Qwen3.5-27B~\\cite{qwen2026qwen35}",
-      "source": "Qwen3.5-27B video formal",
-      "flags": []
-    },
-    {
-      "label": "Qwen3.5-9B~\\cite{qwen2026qwen35}",
-      "source": "Qwen3.5-9B 4fps",
-      "flags": []
-    },
-    {
-      "label": "Qwen3.5-4B~\\cite{qwen2026qwen35}",
-      "source": "Qwen3.5-4B",
-      "flags": []
-    },
-    {
-      "label": "Qwen3-VL-8B~\\cite{bai2025qwen3vl}",
-      "source": "Qwen3-VL-8B",
-      "flags": []
-    },
-    {
-      "label": "GLM-4.6V-Flash~\\cite{vteam2025glm45vglm41vthinkingversatilemultimodal}",
-      "source": "GLM-4.6V-Flash",
-      "flags": []
-    },
-    {
-      "label": "InternVL3.5-38B~\\cite{wang2025internvl3_5}",
-      "source": "InternVL3.5-38B",
-      "flags": []
-    },
-    {
-      "label": "MiMo-VL-7B~\\cite{coreteam2025mimovltechnicalreport}",
-      "source": "MiMo-VL-7B",
-      "flags": []
-    },
-    {
-      "label": "Cosmos3-Nano-Reasoner~\\citep{nvidia2026cosmos3}",
-      "source": "Cosmos3-Nano-Reasoner",
-      "flags": []
-    },
-    {
-      "label": "Cosmos-Reason2-32B~\\citep{nvidia2025cosmosreason2}",
-      "source": "Cosmos-Reason2-32B",
-      "flags": []
-    },
-    {
-      "label": "Cosmos-Reason2-2B~\\citep{nvidia2025cosmosreason2}",
-      "source": "Cosmos-Reason2-2B",
-      "flags": []
-    },
-    {
-      "label": "MiMo-Embodied-7B~\\citep{hao2025mimoembodied}",
-      "source": "MiMo-Embodied-7B",
-      "flags": []
-    },
-    {
-      "label": "RynnBrain-1.1-9B~\\citep{damo2026rynnbrain11}",
-      "source": "RynnBrain-1.1-9B",
-      "flags": []
-    },
-    {
-      "label": "RoboBrain2.5-8B~\\citep{tan2026robobrain25}",
-      "source": "RoboBrain2.5-8B",
-      "flags": []
-    },
-    {
-      "label": "Orca-4B~\\citep{orca2026}",
-      "source": "Orca-4B",
-      "flags": []
-    },
-    {
-      "label": "VideoScore2-8B~\\citep{videoscore2}",
-      "source": "VideoScore2-8B",
-      "flags": []
-    },
-    {
-      "label": "VideoPhy-2-7B~\\citep{videophy2}",
-      "source": "VideoPhy-2-7B",
-      "flags": []
-    },
-    {
-      "label": "VideoCon-7B~\\citep{bansal2024videocon}",
-      "source": "VideoCon-7B",
-      "flags": []
-    },
-    {
-      "label": "WBench-30B-A3B~\\citep{ying2026wbench}",
-      "source": "WBench-30B-A3B",
-      "flags": [
-        "pa_only"
-      ]
-    },
-    {
-      "label": "PhyJudge-9B~\\citep{lin2026phyground}",
-      "source": "PhyJudge-9B",
-      "flags": []
-    },
-    {
-      "label": "\\textbf{RoboJudge-9B (ours)}",
-      "source": "RoboJudge-9B submission",
-      "flags": []
+    "Overall": {
+      "n": 1600,
+      "r": 0.7192105093100114,
+      "match": 0.473125,
+      "mse": 0.746875
     }
-  ]
+  },
+  "bootstrap": {
+    "method": {
+      "replicates": 10000,
+      "seed": 20260926,
+      "cluster": "dataset/task/episode",
+      "clusters": 558,
+      "stratified_by": "dataset",
+      "overall": "Pearson correlation after pooling PA and IA axis-level predictions"
+    },
+    "results": {
+      "PA": {
+        "baseline": "Gemini-3.7-Flash",
+        "robojudge_r": 0.6446174242683556,
+        "baseline_r": 0.6106884203153462,
+        "delta_r": 0.03392900395300935,
+        "ci_95": [
+          -0.011364545782496132,
+          0.07754896262607193
+        ]
+      },
+      "IA": {
+        "baseline": "GPT-5.5",
+        "robojudge_r": 0.7750275116254677,
+        "baseline_r": 0.7312976196173745,
+        "delta_r": 0.043729892008093185,
+        "ci_95": [
+          0.0103097438498769,
+          0.07836434479582507
+        ]
+      },
+      "Overall": {
+        "baseline": "Gemini-3.7-Flash",
+        "robojudge_r": 0.7192105093100044,
+        "baseline_r": 0.6297319729579363,
+        "delta_r": 0.08947853635206815,
+        "ci_95": [
+          0.061335100300163294,
+          0.11852117251646907
+        ]
+      }
+    }
+  }
 }
